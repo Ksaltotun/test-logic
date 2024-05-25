@@ -1,0 +1,21 @@
+@import '../../colors.scss';
+
+.Card {
+    overflow: hidden;
+    min-width: 178px;
+    box-shadow: 0px 10px 13px -4px $boxShadow;
+    border: 1px solid $white;
+    border-radius: 18px;
+
+    main {
+        min-height: 160px;
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+    }
+
+    footer {
+        padding: 12px 18px 18px 18px;
+        text-align: left;
+    }
+}
