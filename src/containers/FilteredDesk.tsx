@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import { Card } from '../components/Card/Card';
 import { TagsButton } from '../components/TagsButton/TagsButton'
 import { makeTagsList } from '../utils/dataPreparation'
 import './FilteredDesk.scss'
-import { AppProps } from '../utils/types';
+import { AppProps, CourseItem } from '../utils/types';
 
 
 
@@ -17,6 +17,13 @@ export const FilteredDesk: React.FC<AppProps> = (props: AppProps) => {
 
         setActiveFilter(filter)
     }
+    const filterCards = (filter: string | null, items: CourseItem[]) => {
+
+        return items.filter(el => (!filter || el.tags.includes(filter))
+        )
+    }
+    const filteredCards = useMemo(() => filterCards(activeFilter, props.data), [activeFilter, props.data]);
+
 
     return (
         <main className='FilteredDesk'>
@@ -35,12 +42,11 @@ export const FilteredDesk: React.FC<AppProps> = (props: AppProps) => {
             <section>
                 <div className='Cards'>
                     <div className='MovedBlock'>
-                    {
-                        props.data.filter(el => (!activeFilter || el.tags.includes(activeFilter))
-                        ).map(element => (
-                            <Card {...element} key={element.id}/>
-                        ))
-                    }
+                        {
+                            filteredCards.map(element => (
+                                <Card {...element} key={element.id} />
+                            ))
+                        }
                     </div>
                 </div>
             </section>
